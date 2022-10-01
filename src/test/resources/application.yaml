@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: drones
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: false
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        globally_quoted_identifiers: true
+  mvc:
+    pathmatch:
+      matching-strategy:
+        ant-path-matcher
+server:
+    port: 8081
