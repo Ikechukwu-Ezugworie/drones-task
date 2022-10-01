@@ -3,8 +3,8 @@ package com.musala.drones.entities;
 import com.musala.drones.enums.Model;
 import com.musala.drones.enums.State;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Drone {
@@ -14,6 +14,9 @@ public class Drone {
     private int weight;
     private int batteryCapacity;
     private State state;
+
+    @OneToMany
+    private List<Medication> medication;
 
     public String getSerialNumber() {
         return serialNumber;

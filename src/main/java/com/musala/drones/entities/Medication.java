@@ -2,15 +2,19 @@ package com.musala.drones.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Medication {
     @Id
-    private long id;
+    private Long id;
     private String name;
     private int weight;
     private String code;
     private String image;
+
+    @ManyToOne
+    private Drone drone;
 
     public long getId() {
         return id;
