@@ -2,6 +2,8 @@ package com.musala.drones.service;
 
 import com.musala.drones.entities.Drone;
 import com.musala.drones.entities.Medication;
+import com.musala.drones.pojo.DronePojo;
+import com.musala.drones.pojo.MedicationPojo;
 import com.musala.drones.repository.DroneRepository;
 import com.musala.drones.utils.Utility;
 
@@ -40,27 +42,27 @@ class DroneServiceTest {
 
     @Test
     void registerDrone() {
-        Drone registeredDrone = droneService.registerDrone(drone);
+        DronePojo registeredDrone = droneService.registerDrone(drone);
         assertNotNull(registeredDrone);
     }
 
     @Test
     void loadDrone() {
-        Drone loadedDrone = droneService.loadDrone(drone.getSerialNumber(), medications);
+        DronePojo loadedDrone = droneService.loadDrone(drone.getSerialNumber(), medications);
         assertNotNull(loadedDrone);
         assertFalse(loadedDrone.getMedications().isEmpty());
     }
 
     @Test
     void getDroneMedications() {
-        List<Medication> medications = droneService.getDroneMedications(drone.getSerialNumber());
+        List<MedicationPojo> medications = droneService.getDroneMedications(drone.getSerialNumber());
         assertNotNull(medications);
         assertFalse(medications.isEmpty());
     }
 
     @Test
     void dronesAvailable() {
-        List<Drone> dronesAvailable = droneService.dronesAvailable(drone.getSerialNumber());
+        List<DronePojo> dronesAvailable = droneService.dronesAvailable(drone.getSerialNumber());
         assertNotNull(dronesAvailable);
         assertFalse(dronesAvailable.isEmpty());
     }

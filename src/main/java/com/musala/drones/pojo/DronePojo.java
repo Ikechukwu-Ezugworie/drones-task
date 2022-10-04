@@ -3,12 +3,15 @@ package com.musala.drones.pojo;
 import com.musala.drones.enums.Model;
 import com.musala.drones.enums.State;
 
+import java.util.List;
+
 public class DronePojo {
     private String serialNumber;
     private Model model;
     private int weight;
     private int batteryCapacity;
     private State state;
+    private List<MedicationPojo> medications;
 
     public String getSerialNumber() {
         return serialNumber;
@@ -48,5 +51,13 @@ public class DronePojo {
 
     public void setState(State state) {
         this.state = state;
+    }
+
+    public List<MedicationPojo> getMedications() {
+        return medications;
+    }
+
+    public void setMedications(List<MedicationPojo> medications) {
+        this.medications = medications;
     }
 }

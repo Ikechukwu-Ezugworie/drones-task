@@ -2,6 +2,8 @@ package com.musala.drones.serviceImpl;
 
 import com.musala.drones.entities.Drone;
 import com.musala.drones.entities.Medication;
+import com.musala.drones.pojo.DronePojo;
+import com.musala.drones.pojo.MedicationPojo;
 import com.musala.drones.repository.DroneRepository;
 import com.musala.drones.service.DroneService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,22 +17,22 @@ public class DroneServiceImpl implements DroneService {
     @Autowired
     DroneRepository droneRepository;
     @Override
-    public Drone registerDrone(Drone drone) {
+    public DronePojo registerDrone(Drone drone) {
         return null;
     }
 
     @Override
-    public Drone loadDrone(String droneId, List<Medication> medications) {
+    public DronePojo loadDrone(String droneId, List<Medication> medications) {
         return null;
     }
 
     @Override
-    public List<Medication> getDroneMedications(String droneId) {
+    public List<MedicationPojo> getDroneMedications(String droneId) {
         return null;
     }
 
     @Override
-    public List<Drone> dronesAvailable(String droneId) {
+    public List<DronePojo> dronesAvailable(String droneId) {
         return null;
     }
 
