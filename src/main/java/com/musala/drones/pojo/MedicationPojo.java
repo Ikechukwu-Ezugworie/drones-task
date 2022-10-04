@@ -1,10 +1,20 @@
 package com.musala.drones.pojo;
 
+import org.springframework.lang.Nullable;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
 public class MedicationPojo {
-    private long id;
+    private Long id;
+    @NotNull
     private String name;
+    @NotNull
     private int weight;
+    @Pattern(regexp = "^[A-Z0-9_]*$")
+    @NotNull
     private String code;
+    @Nullable
     private String image;
 
     public long getId() {
