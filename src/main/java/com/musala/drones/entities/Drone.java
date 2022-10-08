@@ -14,7 +14,7 @@ public class Drone {
     @Column(length = 100)
     private String serialNumber;
     @NotNull
-    private Model model;
+    private String model;
     @Max(value = 500, message = "weight limit cannot be more than 500")
     @NotNull
     private int weightLimit;
@@ -23,13 +23,13 @@ public class Drone {
     @NotNull
     private State state;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "drone")
     private List<Medication> medications;
 
     public Drone() {
     }
 
-    public Drone(String serialNumber, Model model, int weightLimit, int batteryCapacity, State state) {
+    public Drone(String serialNumber, String model, int weightLimit, int batteryCapacity, State state) {
         this.serialNumber = serialNumber;
         this.model = model;
         this.weightLimit = weightLimit;
@@ -37,7 +37,7 @@ public class Drone {
         this.state = state;
     }
 
-    public Drone(String serialNumber, Model model, int weightLimit, int batteryCapacity, State state, List<Medication> medications) {
+    public Drone(String serialNumber, String model, int weightLimit, int batteryCapacity, State state, List<Medication> medications) {
         this.serialNumber = serialNumber;
         this.model = model;
         this.weightLimit = weightLimit;
@@ -54,11 +54,11 @@ public class Drone {
         this.serialNumber = serialNumber;
     }
 
-    public Model getModel() {
+    public String getModel() {
         return model;
     }
 
-    public void setModel(Model model) {
+    public void setModel(String model) {
         this.model = model;
     }
 
@@ -92,5 +92,17 @@ public class Drone {
 
     public void setMedication(List<Medication> medications) {
         this.medications = medications;
+    }
+
+    @Override
+    public String toString() {
+        return "Drone{" +
+                "serialNumber='" + serialNumber + '\'' +
+                ", model=" + model +
+                ", weightLimit=" + weightLimit +
+                ", batteryCapacity=" + batteryCapacity +
+                ", state=" + state +
+                ", medications=" + medications +
+                '}';
     }
 }

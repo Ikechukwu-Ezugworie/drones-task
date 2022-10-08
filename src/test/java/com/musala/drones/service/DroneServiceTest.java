@@ -27,17 +27,14 @@ class DroneServiceTest {
     @Autowired
     DroneRepository droneRepository;
 
-    Drone drone = null;
+    DronePojo drone = null;
     List<Medication> medications = null;
 
     @BeforeEach
     void setUp() {
+        droneRepository.deleteAll();
         drone = Utility.defineADrone();
         medications = Utility.defineMedications();
-    }
-
-    @AfterEach
-    void tearDown() {
     }
 
     @Test

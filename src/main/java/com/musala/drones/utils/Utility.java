@@ -4,9 +4,11 @@ import com.musala.drones.entities.Drone;
 import com.musala.drones.entities.Medication;
 import com.musala.drones.enums.Model;
 import com.musala.drones.enums.State;
+import com.musala.drones.pojo.DronePojo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Utility {
 
@@ -21,8 +23,8 @@ public class Utility {
         return medications;
     }
 
-    public static Drone defineADrone() {
-       Drone drone = new Drone("123", Model.MIDDLE_WEIGHT, 200, 60, State.IDLE);
+    public static DronePojo defineADrone() {
+        DronePojo drone = new DronePojo(Model.CRUISER_WEIGHT.getModel(), 60, State.IDLE);
        return drone;
     }
 }

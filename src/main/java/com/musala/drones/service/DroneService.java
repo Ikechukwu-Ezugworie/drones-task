@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public interface DroneService {
 
-    DronePojo registerDrone(Drone drone);
+    DronePojo registerDrone(DronePojo drone);
 
     DronePojo loadDrone(String droneId, List<Medication> medications);
 
