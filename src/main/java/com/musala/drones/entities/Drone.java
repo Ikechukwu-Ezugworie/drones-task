@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Drone {
@@ -23,8 +24,14 @@ public class Drone {
     @NotNull
     private State state;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "drone")
-    private List<Medication> medications;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "drone_medications",
+            joinColumns = @JoinColumn(name = "drone_serial_number"),
+            inverseJoinColumns = @JoinColumn(name = "medication_code")
+    )
+    private Set<Medication> medications;
+
 
     public Drone() {
     }
@@ -37,7 +44,7 @@ public class Drone {
         this.state = state;
     }
 
-    public Drone(String serialNumber, String model, int weightLimit, int batteryCapacity, State state, List<Medication> medications) {
+    public Drone(String serialNumber, String model, int weightLimit, int batteryCapacity, State state, Set<Medication> medications) {
         this.serialNumber = serialNumber;
         this.model = model;
         this.weightLimit = weightLimit;
@@ -86,11 +93,11 @@ public class Drone {
         this.state = state;
     }
 
-    public List<Medication> getMedications() {
+    public Set<Medication> getMedications() {
         return medications;
     }
 
-    public void setMedication(List<Medication> medications) {
+    public void setMedications(Set<Medication> medications) {
         this.medications = medications;
     }
 

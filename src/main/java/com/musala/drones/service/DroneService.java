@@ -13,7 +13,7 @@ public interface DroneService {
 
     DronePojo registerDrone(DronePojo drone);
 
-    DronePojo loadDrone(String droneId, List<Medication> medications);
+    DronePojo loadDrone(String droneId, List<String> medications);
 
     List<MedicationPojo> getDroneMedications(String droneId);
 

@@ -6,6 +6,8 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
 public class DronePojo {
     private String serialNumber;
@@ -17,7 +19,7 @@ public class DronePojo {
     private int weightLimit;
     private int batteryCapacity;
     private State state;
-    private List<MedicationPojo> medications;
+    private Set<MedicationPojo> medications;
 
     public DronePojo() {
     }
@@ -64,6 +66,14 @@ public class DronePojo {
         this.batteryCapacity = batteryCapacity;
     }
 
+    public void setRandomBatteryCapacity() {
+        int min = 20;
+        int max = 100;
+        Random random = new Random();
+        int randomInt = (int) (random.nextFloat() * (max - min) + min);
+        this.batteryCapacity = randomInt;
+    }
+
     public State getState() {
         return state;
     }
@@ -72,11 +82,11 @@ public class DronePojo {
         this.state = state;
     }
 
-    public List<MedicationPojo> getMedications() {
+    public Set<MedicationPojo> getMedications() {
         return medications;
     }
 
-    public void setMedications(List<MedicationPojo> medications) {
+    public void setMedications(Set<MedicationPojo> medications) {
         this.medications = medications;
     }
 

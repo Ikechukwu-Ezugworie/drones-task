@@ -1,28 +1,30 @@
 package com.musala.drones.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import org.springframework.lang.Nullable;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 @Entity
 public class Medication {
     @Id
+    @GeneratedValue
     private Long id;
-    @Pattern(regexp = "")
+    @Pattern(regexp = "^[\\w-]+$")
     @NotNull
     private String name;
     @NotNull
     private int weight;
     @NotNull
+    @Pattern(regexp = "^[A-Z0-9_]*$", message = "only uppercase letters, numbers and underscore are allowed")
     private String code;
-    @NotNull
+    @Nullable
     private String image;
 
-    @ManyToOne
-    private Drone drone;
+    @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL, mappedBy = "medications")
+    private List<Drone> drones;
 
     public Medication() {
     }

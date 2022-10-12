@@ -1,5 +1,6 @@
 package com.musala.drones.controller;
 
+import com.musala.drones.entities.Medication;
 import com.musala.drones.pojo.DronePojo;
 import com.musala.drones.repository.DroneRepository;
 import com.musala.drones.service.DroneService;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/drones")
@@ -25,4 +27,8 @@ public class DispatchController {
         return ResponseEntity.ok(droneService.registerDrone(dronePojo));
     }
 
+    @PutMapping("{serialNumber}/medications")
+    public ResponseEntity<DronePojo> loadDrone(@PathVariable String serialNumber, @RequestBody List<String> medicationIds) {
+        return ResponseEntity.ok(droneService.loadDrone(serialNumber, medicationIds));
+    }
 }
