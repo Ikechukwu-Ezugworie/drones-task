@@ -30,12 +30,12 @@ public class DispatchController {
     }
 
     @PutMapping("{serialNumber}/medications")
-    public ResponseEntity<DronePojo> loadDrone(@PathVariable String serialNumber, @RequestBody List<String> medicationIds) {
+    public ResponseEntity<DronePojo> loadDrone(@PathVariable  @Valid String serialNumber, @RequestBody List<String> medicationIds) {
         return ResponseEntity.ok(droneService.loadDrone(serialNumber, medicationIds));
     }
 
     @GetMapping("{serialNumber}/medications")
-    public ResponseEntity<Set<MedicationPojo>> checkDroneMedications(@PathVariable String serialNumber){
+    public ResponseEntity<Set<MedicationPojo>> checkDroneMedications(@PathVariable  @Valid String serialNumber){
         return ResponseEntity.ok(droneService.getDroneMedications(serialNumber));
     }
 
@@ -43,4 +43,10 @@ public class DispatchController {
     public ResponseEntity<List<DronePojo>> getAvailableDrones(){
         return ResponseEntity.ok(droneService.dronesAvailable());
     }
+
+    @GetMapping("{serialNumber}/battery")
+    public ResponseEntity<Integer> getBatteryLevel(@PathVariable  @Valid String serialNumber){
+        return ResponseEntity.ok(droneService.checkDroneBatteryLevel(serialNumber));
+    }
+
 }

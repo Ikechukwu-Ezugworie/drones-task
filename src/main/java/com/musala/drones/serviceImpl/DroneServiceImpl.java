@@ -100,8 +100,9 @@ public class DroneServiceImpl implements DroneService {
     }
 
     @Override
-    public Integer checkDroneBatteryLevel(String droneId) {
-        return null;
+    public Integer checkDroneBatteryLevel(String serialNumber) {
+        Drone drone = droneRepository.findById(serialNumber).orElseThrow(() -> new NotFoundException("Drone with serial number: "+ serialNumber + " does not exist"));
+        return drone.getBatteryCapacity();
     }
 
     private boolean isDroneLoadable(int batteryCapacity){
@@ -125,5 +126,10 @@ public class DroneServiceImpl implements DroneService {
         }
 
         return true;
+    }
+
+    public List<DronePojo> getAllDrones() {
+        List<Drone> drones = droneRepository.findAll();
+        return modelMapper.map(drones, new TypeToken<List<DronePojo>>() {}.getType());
     }
 }
