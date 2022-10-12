@@ -12,6 +12,7 @@ import com.musala.drones.repository.MedicationRepository;
 import com.musala.drones.service.DroneService;
 import com.musala.drones.service.MedicationService;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -83,9 +85,13 @@ public class DroneServiceImpl implements DroneService {
     }
 
     @Override
-    public List<MedicationPojo> getDroneMedications(String droneId) {
-        return null;
+    public Set<MedicationPojo> getDroneMedications(String serialNumber) {
+        log.info("fetching drone medications");
+        Drone drone = droneRepository.findById(serialNumber).orElseThrow(() -> new NotFoundException("Drone with serial number: "+ serialNumber + " does not exist"));
+        Set<Medication> droneMedications = drone.getMedications();
+        return modelMapper.map(droneMedications,  new TypeToken<Set<MedicationPojo>>() {}.getType());
     }
+
 
     @Override
     public List<DronePojo> dronesAvailable(String droneId) {

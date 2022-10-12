@@ -7,6 +7,7 @@ import com.musala.drones.pojo.MedicationPojo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public interface DroneService {
@@ -15,7 +16,7 @@ public interface DroneService {
 
     DronePojo loadDrone(String droneId, List<String> medications);
 
-    List<MedicationPojo> getDroneMedications(String droneId);
+    Set<MedicationPojo> getDroneMedications(String serialNumber);
 
     List<DronePojo> dronesAvailable(String droneId);
 
