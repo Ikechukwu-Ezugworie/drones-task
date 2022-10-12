@@ -21,4 +21,6 @@ public interface DroneService {
     List<DronePojo> dronesAvailable();
 
     Integer checkDroneBatteryLevel(String droneId);
+
+    List<DronePojo> getAllDrones();
 }
