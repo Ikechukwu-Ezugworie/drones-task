@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 @Service
 public class DroneServiceImpl implements DroneService {
     Logger log = LoggerFactory.getLogger(DroneService.class);
-    private final double MIN_BATTERY_CAPACITY = 25;
+    private final int MIN_BATTERY_CAPACITY = 25;
 
 
     @Autowired
@@ -94,8 +94,9 @@ public class DroneServiceImpl implements DroneService {
 
 
     @Override
-    public List<DronePojo> dronesAvailable(String droneId) {
-        return null;
+    public List<DronePojo> dronesAvailable() {
+        List<Drone> drones = droneRepository.findByStateAndBatteryCapacityGreaterThan(State.IDLE, MIN_BATTERY_CAPACITY);
+        return modelMapper.map(drones, new TypeToken<List<DronePojo>>() {}.getType());
     }
 
     @Override

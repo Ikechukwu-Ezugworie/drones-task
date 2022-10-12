@@ -18,7 +18,7 @@ public interface DroneService {
 
     Set<MedicationPojo> getDroneMedications(String serialNumber);
 
-    List<DronePojo> dronesAvailable(String droneId);
+    List<DronePojo> dronesAvailable();
 
     Integer checkDroneBatteryLevel(String droneId);
 }

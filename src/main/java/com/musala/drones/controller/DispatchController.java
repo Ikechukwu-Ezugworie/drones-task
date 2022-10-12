@@ -38,4 +38,9 @@ public class DispatchController {
     public ResponseEntity<Set<MedicationPojo>> checkDroneMedications(@PathVariable String serialNumber){
         return ResponseEntity.ok(droneService.getDroneMedications(serialNumber));
     }
+
+    @GetMapping("available")
+    public ResponseEntity<List<DronePojo>> getAvailableDrones(){
+        return ResponseEntity.ok(droneService.dronesAvailable());
+    }
 }
