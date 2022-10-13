@@ -19,10 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -44,6 +41,9 @@ public class DroneServiceImpl implements DroneService {
 
     ModelMapper modelMapper = new ModelMapper();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DronePojo registerDrone(DronePojo drone) {
         log.info("Registering drone");
@@ -52,12 +52,16 @@ public class DroneServiceImpl implements DroneService {
         drone.setWeightLimit(drone.getWeightLimit());
         drone.setRandomBatteryCapacity();
         drone.setState(State.IDLE);
+        drone.setMedications(new HashSet<>());
         Drone droneEntity = modelMapper.map(drone, Drone.class);
         Drone registeredDrone = droneRepository.save(droneEntity);
         log.info("Drone registered successfully: {}", registeredDrone);
         return modelMapper.map(registeredDrone, DronePojo.class);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DronePojo loadDrone(String droneId, List<String> medicationIds) {
         log.info("Loading drone with medications");
@@ -84,6 +88,9 @@ public class DroneServiceImpl implements DroneService {
         return modelMapper.map(loadedDrone, DronePojo.class);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<MedicationPojo> getDroneMedications(String serialNumber) {
         log.info("fetching drone medications");
@@ -93,28 +100,58 @@ public class DroneServiceImpl implements DroneService {
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<DronePojo> dronesAvailable() {
+        log.info("Fetching available drones");
         List<Drone> drones = droneRepository.findByStateAndBatteryCapacityGreaterThan(State.IDLE, MIN_BATTERY_CAPACITY);
         return modelMapper.map(drones, new TypeToken<List<DronePojo>>() {}.getType());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Integer checkDroneBatteryLevel(String serialNumber) {
+        log.info("Checking drone battery level");
         Drone drone = droneRepository.findById(serialNumber).orElseThrow(() -> new NotFoundException("Drone with serial number: "+ serialNumber + " does not exist"));
         return drone.getBatteryCapacity();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public List<DronePojo> getAllDrones() {
+        List<Drone> drones = droneRepository.findAll();
+        return modelMapper.map(drones, new TypeToken<List<DronePojo>>() {}.getType());
+    }
+
+    /**
+     * check if drone is loadable
+     * @param batteryCapacity
+     * @return boolean
+     */
     private boolean isDroneLoadable(int batteryCapacity){
         return batteryCapacity > MIN_BATTERY_CAPACITY;
     }
 
+    /**
+     * check if the drone can carry the new medications loaded to it
+     * @param limit
+     * @param loadedMedications
+     * @param newMedications
+     * @return boolean
+     */
     private boolean isLoadedWeightValid(int limit, Set<Medication> loadedMedications, List<Medication> newMedications){
         int loadedWeight = 0;
         int incomingWeight = 0;
 
-        for(Medication medication : loadedMedications){
-            loadedWeight += medication.getWeight();
+        if (loadedMedications != null){
+            for(Medication medication : loadedMedications){
+                loadedWeight += medication.getWeight();
+            }
         }
 
         for(Medication medication : newMedications){
@@ -128,8 +165,4 @@ public class DroneServiceImpl implements DroneService {
         return true;
     }
 
-    public List<DronePojo> getAllDrones() {
-        List<Drone> drones = droneRepository.findAll();
-        return modelMapper.map(drones, new TypeToken<List<DronePojo>>() {}.getType());
-    }
 }
