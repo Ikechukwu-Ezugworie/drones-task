@@ -9,7 +9,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
 @OpenAPIDefinition(
         info = @Info(
                 title = "Drone Dispatcher",
-                description = "A Drone management application",
+                description = "REST API service that allows Drone dispatch medications",
                 contact = @Contact(
                         name = "Ikechukwu Ezugworie",
                         url = "https://www.linkedin.com/in/ezugworie/",
