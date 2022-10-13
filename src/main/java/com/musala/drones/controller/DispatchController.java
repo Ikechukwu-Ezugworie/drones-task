@@ -34,14 +34,8 @@ public class DispatchController {
     }
 
     @Operation(summary = "load a drone with medication")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "loaded drone",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Book.class))}),
-            @ApiResponse(responseCode = "400", description = "Invalid serialNumber supplied",
-                    content = @Content),
-            @ApiResponse(responseCode = "404", description = "drone not found",
-                    content = @Content)})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "successful"),
+            @ApiResponse(responseCode = "500", description = "internal error - critical!")})
     @PutMapping("{serialNumber}/medications")
     public ResponseEntity<DronePojo> loadDrone(@PathVariable @Valid String serialNumber, @RequestBody List<String> medicationIds) {
         return ResponseEntity.ok(droneService.loadDrone(serialNumber, medicationIds));
@@ -69,6 +63,14 @@ public class DispatchController {
     @GetMapping("{serialNumber}/battery")
     public ResponseEntity<Integer> getBatteryLevel(@PathVariable @Valid String serialNumber) {
         return ResponseEntity.ok(droneService.checkDroneBatteryLevel(serialNumber));
+    }
+
+    @Operation(summary = "get all drones")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "successful"),
+            @ApiResponse(responseCode = "500", description = "internal error - critical!")})
+    @GetMapping
+    public ResponseEntity<List<DronePojo>> getAll() {
+        return ResponseEntity.ok(droneService.getAllDrones());
     }
 
 }
