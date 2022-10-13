@@ -65,12 +65,4 @@ public class DispatchController {
         return ResponseEntity.ok(droneService.checkDroneBatteryLevel(serialNumber));
     }
 
-    @Operation(summary = "get all drones")
-    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "successful"),
-            @ApiResponse(responseCode = "500", description = "internal error - critical!")})
-    @GetMapping
-    public ResponseEntity<List<DronePojo>> getAll() {
-        return ResponseEntity.ok(droneService.getAllDrones());
-    }
-
 }
