@@ -12,11 +12,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-@Component
+//@Component
 public class BatteryLevelTask {
     Logger log = LoggerFactory.getLogger(BatteryLevelTask.class);
 
-    @Autowired
+//    @Autowired
     private DroneService droneService;
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss");

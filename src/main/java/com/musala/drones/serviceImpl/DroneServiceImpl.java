@@ -1,5 +1,6 @@
 package com.musala.drones.serviceImpl;
 
+import com.musala.drones.annotations.LoggerAspect;
 import com.musala.drones.entities.Drone;
 import com.musala.drones.entities.Medication;
 import com.musala.drones.enums.State;
@@ -104,6 +105,7 @@ public class DroneServiceImpl implements DroneService {
      * {@inheritDoc}
      */
     @Override
+    @LoggerAspect
     public List<DronePojo> dronesAvailable() {
         log.info("Fetching available drones");
         List<Drone> drones = droneRepository.findByStateAndBatteryCapacityGreaterThan(State.IDLE, MIN_BATTERY_CAPACITY);

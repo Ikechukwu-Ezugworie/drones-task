@@ -52,7 +52,7 @@ public class DispatchController {
     @Operation(summary = "get drones available for loading")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "successful"),
             @ApiResponse(responseCode = "500", description = "internal error - critical!")})
-    @GetMapping("available")
+    @GetMapping(value = "/available")
     public ResponseEntity<List<DronePojo>> getAvailableDrones() {
         return ResponseEntity.ok(droneService.dronesAvailable());
     }
